@@ -5,8 +5,8 @@ CREATE TABLE users (
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
     name TEXT NOT NULL,
-    api_key VARCHAR(64) UNIQUE NOT NULL DEFAULT encode(gen_random_bytes(32), 'hex')
-)
+    api_key VARCHAR(64) UNIQUE NOT NULL
+);
 
 -- +goose Down
 
