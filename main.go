@@ -51,6 +51,7 @@ func main() {
 	r.Get("/healthz", healthCheckHandler) 	// register route + handler
 	r.Get("/ping", pingHandler)
 	r.Post("/users", cfg.handlerCreateUser)
+	r.Get("/users", cfg.middlewareAuth(cfg.getUserHandler))
 
 	r.Mount("/v1", r)
 
