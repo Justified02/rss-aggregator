@@ -50,8 +50,19 @@ func main() {
 
 	r.Get("/healthz", healthCheckHandler) 	// register route + handler
 	r.Get("/ping", pingHandler)
+
+	// User routes
 	r.Post("/users", cfg.handlerCreateUser)
 	r.Get("/users", cfg.middlewareAuth(cfg.getUserHandler))
+
+	// Feed routes
+	r.Post("/feeds", cfg.middlewareAuth(cfg.createFeedHandler))
+	r.Get("/feeds", cfg.getFeedsHandler)
+
+	// Feed follows routes
+	r.Post("/feed_follows", cfg.middlewareAuth(cfg.CreateFeedFollowHandler))
+	r.Get("/feed_follows", cfg.middlewareAuth(cfg.getFeedFollowsHandler))
+	r.Delete("/feed_follows/{feedFollowID}", cfg.middlewareAuth(cfg.deleteFeedFollowHandler))
 
 	r.Mount("/v1", r)
 
