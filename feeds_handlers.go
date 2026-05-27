@@ -9,7 +9,7 @@ import (
 
 type createFeedParams struct {
 	Name string `json:"name"`
-	URL string `json:"url"`
+	URL  string `json:"url"`
 }
 
 func (cfg *apiConfig) createFeedHandler(w http.ResponseWriter, r *http.Request) {
@@ -27,8 +27,8 @@ func (cfg *apiConfig) createFeedHandler(w http.ResponseWriter, r *http.Request) 
 
 	// 3. Insert feed into database
 	feed, err := cfg.DB.CreateFeed(r.Context(), database.CreateFeedParams{
-		Name: 	params.Name,
-		Url: 	params.URL,
+		Name:   params.Name,
+		Url:    params.URL,
 		UserID: user.ID,
 	})
 	if err != nil {

@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/Justified02/rssagg/internal/database"
 	"github.com/go-chi/chi/v5"
@@ -64,7 +65,12 @@ func main() {
 	r.Get("/feed_follows", cfg.middlewareAuth(cfg.getFeedFollowsHandler))
 	r.Delete("/feed_follows/{feedFollowID}", cfg.middlewareAuth(cfg.deleteFeedFollowHandler))
 
+	// Posts routes
+	r.Get("/posts", cfg.middlewareAuth(cfg.getPostsHandler))
+
 	r.Mount("/v1", r)
+
+	go startScraping(cfg.DB, 10, time.Minute) // 10 feeds at a time, every 1 minute
 
 	fmt.Println("Server running on port 8080")
 	http.ListenAndServe(":8080", r) 	// start http server on port 8080

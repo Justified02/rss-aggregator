@@ -1,1 +1,18 @@
+# Environment variables (Crucial for security!)
 .env
+*.env
+app.env
+
+# Go binaries and files
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# OS specific files
+.DS_Store
+Thumbs.db
